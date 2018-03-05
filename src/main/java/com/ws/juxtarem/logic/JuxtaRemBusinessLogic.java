@@ -1,30 +1,30 @@
 package com.ws.juxtarem.logic;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ws.juxtarem.dao.UserDao;
 import com.ws.juxtarem.dao.UserDaoImpl;
-import com.ws.juxtarem.hibernate.HibernateConfiguration;
+import com.ws.juxtarem.hibernate.JPAConfiguration;
 import com.ws.juxtarem.obj.Task;
 import com.ws.juxtarem.obj.User;
 
 public class JuxtaRemBusinessLogic {
 	private static Logger LOGGER = LoggerFactory.getLogger(JuxtaRemBusinessLogic.class);
-	SessionFactory sessionFactory = HibernateConfiguration.SESSION_FACTORY;
+	EntityManagerFactory entityManagerFactory = JPAConfiguration.ENTITY_MANAGER_FACTORY;
 	UserDao userDao = new UserDaoImpl();
  
 
-	public long loginUser(String mail) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        userDao.saveUser(user);
-        session.getTransaction().commit();
+	public User loginUser(String mail) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        User user = userDao.findUserByMail(mail);
         session.close();
         LOGGER.debug("Successfully created " + user.toString());
-        return user.getId();
+        return user;
 	}
 	
 	public long saveUser(User user) {
@@ -67,9 +67,7 @@ public class JuxtaRemBusinessLogic {
     }
     
     public Task getFirstTask() {
-        Session session = sessionFactory.openSession();
-        Task e = (Task)session.load(Task.class, 1L);
-        session.close();
-        return e;
+    	
+        return new Task();
     }
 }

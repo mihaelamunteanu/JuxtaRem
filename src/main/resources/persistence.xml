@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" 
+    version="1.0">
+
+    <persistence-unit name="JuxtaRemPersistence">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <mapping-file>META-INF/hibernate.cfg.xml</mapping-file>
+        <properties>
+        <!-- properties moved to hibernate.cfg.xml file
+            <property name="connection.driver_class" value="org.h2.Driver"/>
+            <property name="connection.url" value="jdbc:h2:/home/jenkins/workspace/javaee-class-deploy/jpa/jpa-providers/jpa-hibernate/hibernate-migration/hibernate-migration-docbook/target/h2db/ejava"/>
+            <property name="connection.username" value="sa"/>
+            <property name="connection.password" value=""/>
+            <property name="connection.pool_size" value="1"/>
+            <property name="dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="show_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="create"/>
+            <property name="current_session_context_class" value="thread"/>
+            <property name="cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+            -->
+        </properties>
+    </persistence-unit>        
+    
+</persistence>

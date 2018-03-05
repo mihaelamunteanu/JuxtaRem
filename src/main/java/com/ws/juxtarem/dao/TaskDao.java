@@ -1,5 +1,7 @@
 package com.ws.juxtarem.dao;
 
-public class TaskDao {
+import com.ws.juxtarem.obj.Task;
 
+public interface TaskDao {
+	public Task findTaskByID(long id);
 }
