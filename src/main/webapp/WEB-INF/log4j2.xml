@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="filename">juxtarem/juxtarem.log</Property>
+  </Properties>
+  <Appenders>
+    <RollingFile name="RollingFile" fileName="juxtarem/juxtarem.log"
+                 filePattern="juxtarem/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+    </RollingFile>
+	<Appender type="File" name="File" fileName="${filename}">
+      <Layout type="PatternLayout">
+        <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+      </Layout>
+    </Appender>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.ws.juxstarem" level="debug">
+      <AppenderRef ref="RollingFile" additivity="false"/>
+    </Logger>
+    <Root level="error">
+      <AppenderRef ref="RollingFile" additivity="false"/>
+    </Root>
+  </Loggers>
+</Configuration>

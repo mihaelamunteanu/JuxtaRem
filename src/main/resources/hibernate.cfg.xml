@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-configuration>
+   <session-factory>
+   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+   <property name="hibernate.connection.datasource">java:comp/env/jdbc/juxtarem</property>
+   <property name="hibernate.current_session_context_class">thread</property>
+
+   <property name="hibernate.show_sql">true</property>
+   <property name="hibernate.format_sql">true</property>
+   
+   <!--property name="hibernate.cache.region.factory_class">org.hibernate.cache.internal.NoCacheProvider</property-->
+   
+   <!-- property name="hibernate.cache.use_query_cache">true</property>
+   <property name="hibernate.cache.use_second_level_cache">true</property>
+   <property name="hibernate.cache.region.factory_class">org.hibernate.cache.SingletonEhCacheRegionFactory</property-->
+   <property name="hibernate.generate_statistics">true</property>
+   <mapping class="com.ws.juxtarem.obj.User"/>
+   <mapping class="com.ws.juxtarem.obj.Task"/>
+   <mapping class="com.ws.juxtarem.obj.UserTask"/>
+</session-factory>
+</hibernate-configuration>
