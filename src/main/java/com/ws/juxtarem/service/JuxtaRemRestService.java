@@ -27,6 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ws.juxtarem.json.ResponseBuilder;
 import com.ws.juxtarem.logic.JuxtaRemBusinessLogic;
 import com.ws.juxtarem.obj.Task;
 import com.ws.juxtarem.obj.User;
@@ -67,21 +68,13 @@ public class JuxtaRemRestService {
 	@Path("/points/{id}")
 	public Response getUserPoints(@PathParam("id") String id) {
 		User foundUser = logicProcessor.findUserByID(Long.valueOf(id));
-		return Response.ok("{\"user\" : \"" + foundUser.getPoints() + "\", \"point\" : \"12\"}", MediaType.APPLICATION_JSON).build();
-	}
-	
-	@GET
-	@Path("tasks/task")
-	public Response getRandomTask() {
-		Task foundTask = logicProcessor.getFirstTask();
-		return Response.ok("{\"task\" : \"" + foundTask.getTaskText() + "\", \"point\" : \"" + 
-		foundTask.getAwardedPoints() + "\"}", MediaType.APPLICATION_JSON).build();
+		return ResponseBuilder.buildGetUserPointsResponse(foundUser);
 	}
 	
 	@GET
 	@Path("tasks/{id}")
-    private Response getTask(@PathParam("id") String id) {
-        Task foundTask = logicProcessor.getFirstTask();
+    public Response getTask(@PathParam("id") String id) {
+        Task foundTask = logicProcessor.findTaskByID(Long.valueOf(id));
 		return Response.ok("{\"task\" : \"" + foundTask.getTaskText() + "\", \"point\" : \"" + 
 		foundTask.getAwardedPoints() + "\"}", MediaType.APPLICATION_JSON).build();
     }

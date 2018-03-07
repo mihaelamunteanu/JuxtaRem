@@ -43,6 +43,14 @@ public class ObjectUtils {
 		return result; 
 	}
 	
+	@Deprecated
+	/**
+	 * Use JSONUtils methods
+	 * 
+	 * @param key
+	 * @param value
+	 * @return JSON string with given key and value
+	 */
 	public static String buildJSONObject(String key, String value) {
 		StringBuffer jsonObjectStringBuffer = new StringBuffer();
 		//{"key":"value"}
@@ -52,6 +60,15 @@ public class ObjectUtils {
 		return jsonObjectStringBuffer.toString();
 	}
 	
+	@Deprecated
+	/**
+	 * Use JSONUtils methods
+	 * 
+	 * @param key
+	 * @param value
+	 * @param addComma
+	 * @return JSON string with given key and value
+	 */
 	public static String buildJSONObject(String key, String value, boolean addComma) {
 		StringBuffer jsonObjectStringBuffer = new StringBuffer();
 		//{"key":"value"}

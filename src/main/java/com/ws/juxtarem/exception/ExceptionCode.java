@@ -14,20 +14,33 @@
  *  limitations under the License. 
  *  
  */
-package com.ws.juxtarem.util;
+package com.ws.juxtarem.exception;
 
 /**
- * Constants class. 
- * 
+ * Enum class to organize possible web service exceptions
+ *  
  * @author Mihaela Munteanu
  * @since 7th of March 2018
  *
  */
-public class Constants {
-	public static final String HIBERNATE_CONFIGURATION = "/hibernate.cfg.xml";
+public enum ExceptionCode {
+	ID_NOT_A_NUMBER("001", "The ids are expected to be long values"),
+	ID_DOES_NOT_EXIST("002", "An object with this id does not exist");
 	
-	public static final String USERS = "users";
-	public static final String USER = "user";
-	public static final String POINTS = "points";
-	public static final String RESPONSE = "response";
+	private String code;
+	private String description; 
+	
+	private ExceptionCode(String code, String description) {
+		this.code = code; 
+		this.description = description;
+	}
+	
+	public String getCode( ) {
+		return code;
+	}
+	
+	public String getDescription( ) {
+		return description;
+	}
+
 }

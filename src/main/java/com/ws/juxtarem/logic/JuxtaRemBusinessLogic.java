@@ -87,9 +87,9 @@ public class JuxtaRemBusinessLogic {
         return e;
     }
     
-    public Task getFirstTask() {
+    public Task findTaskByID(Long id) {
         Session session = sessionFactory.openSession();
-        Task e = (Task)session.load(Task.class, 1L);
+        Task e = (Task)session.load(Task.class, id);
         session.close();
         return e;
     }

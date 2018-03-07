@@ -1,3 +1,4 @@
+
 /**
  * Copyright 2018 Mihaela Munteanu 
  * 
@@ -13,21 +14,23 @@
  *  See the License for the specific language governing permissions and 
  *  limitations under the License. 
  *  
- */
-package com.ws.juxtarem.util;
+ */package com.ws.juxtarem.util;
 
 /**
- * Constants class. 
+ * Utils class for validating web service input. 
  * 
  * @author Mihaela Munteanu
  * @since 7th of March 2018
  *
  */
-public class Constants {
-	public static final String HIBERNATE_CONFIGURATION = "/hibernate.cfg.xml";
-	
-	public static final String USERS = "users";
-	public static final String USER = "user";
-	public static final String POINTS = "points";
-	public static final String RESPONSE = "response";
+public class ValidationUtils {
+	/** 
+	 * 
+	 * @param id
+	 * @return false if the value is not Long
+	 */
+	public static boolean validateId(String id) {
+		//TODO add impl
+		return true;
+	}
 }
