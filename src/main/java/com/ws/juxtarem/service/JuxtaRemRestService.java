@@ -77,4 +77,12 @@ public class JuxtaRemRestService {
 		return Response.ok("{\"task\" : \"" + foundTask.getTaskText() + "\", \"point\" : \"" + 
 		foundTask.getAwardedPoints() + "\"}", MediaType.APPLICATION_JSON).build();
 	}
+	
+	@GET
+	@Path("tasks/{id}")
+    private Response getTask(@PathParam("id") String id) {
+        Task foundTask = logicProcessor.getFirstTask();
+		return Response.ok("{\"task\" : \"" + foundTask.getTaskText() + "\", \"point\" : \"" + 
+		foundTask.getAwardedPoints() + "\"}", MediaType.APPLICATION_JSON).build();
+    }
 }  

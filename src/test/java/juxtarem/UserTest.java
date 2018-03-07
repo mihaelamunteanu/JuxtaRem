@@ -1,37 +1,49 @@
 package juxtarem;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ws.juxtarem.logic.JuxtaRemBusinessLogic;
 import com.ws.juxtarem.obj.User;
 
+/**
+ * Integration test - Tomcat server with appropriate war deploy is expected as well as the DB.
+ * 
+ * @author Mihaela Munteanu
+ *
+ */
 public class UserTest {
-	private SessionFactory sessionFactory;
-	private Session session = null;
+	JuxtaRemBusinessLogic businessLogic;
 	
 	@Before
 	public void before() {
-        sessionFactory = HibernateConfigurationTest.getHibernateConfiguration()
-                .buildSessionFactory();
-        session = sessionFactory.openSession();
+        businessLogic = new JuxtaRemBusinessLogic();
 	}
 	
 	@Test
-	public void testCreateUser() {
+	public void testCreateUsers() {
+		createUser("Agnes", "Munteanu", "M", 0, "mihaela@yahoo.com");
+		createUser("Bogdan", "Munteanu", "M", 0, "bogdan@yahoo.com");
+	}
+	
+//	@Test
+//	public void loginUser() {
+//		businessLogic.loginUser("mihaela@yahoo.com");
+//	}
+	
+	private User createUser(String firstName, String lastname, String middleName, int points, String mail) {
 		User user = new User();
-		user.setFirstName("Mihaela");
-		user.setLastName("Munteanu");
-		user.setMiddleName("M");
-		user.setPoints(0);
-		user.setMainMail("mihaela@yahoo.com");
+		user.setFirstName(firstName);
+		user.setLastName(lastname);
+		user.setMiddleName(middleName);
+		user.setPoints(points);
+		user.setMainMail(mail);
 		
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
+		businessLogic.saveUser(user);
+        
         System.out.println("Successfully created " + user.toString());
+        
+        return user;
 	}
 
 }

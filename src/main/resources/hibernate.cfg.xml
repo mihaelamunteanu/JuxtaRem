@@ -8,6 +8,8 @@
    <property name="hibernate.show_sql">true</property>
    <property name="hibernate.format_sql">true</property>
    
+   <property name="hibernate.hbm2ddl.auto">update</property>
+   
    <!--property name="hibernate.cache.region.factory_class">org.hibernate.cache.internal.NoCacheProvider</property-->
    
    <!-- property name="hibernate.cache.use_query_cache">true</property>
