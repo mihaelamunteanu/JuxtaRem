@@ -21,6 +21,7 @@ import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -45,6 +46,18 @@ public class JuxtaRemRestService {
 		init();
 	}
 
+	@POST
+	@Path("/createuser/{name}/{mail}/{pass}")
+	public Response createNewUser(@PathParam("name") String name, @PathParam("mail") String mail, @PathParam("pass") String pass) {
+		try {
+			User createdUser = logicProcessor.createNewUser(name, mail, pass.getBytes());
+			return ResponseBuilder.buildCreateNewUserResponse(createdUser);
+		} catch (Exception juxtaRemException) {
+			return ResponseBuilder.buildPostCreateNewUserExceptionResponse(juxtaRemException);
+		}
+		
+	}
+	
 	@GET
 	@Path("/users/login/{mail}")
 	public Response loginUser(@PathParam("mail") String mail) {

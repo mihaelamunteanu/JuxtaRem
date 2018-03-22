@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import com.ws.juxtarem.dao.UserDaoImpl;
 import com.ws.juxtarem.dao.api.UserDao;
+import com.ws.juxtarem.exception.ExceptionCode;
+import com.ws.juxtarem.exception.JuxtaRemException;
 import com.ws.juxtarem.hibernate.HibernateConfiguration;
 import com.ws.juxtarem.obj.Task;
 import com.ws.juxtarem.obj.User;
@@ -65,7 +67,7 @@ public class JuxtaRemBusinessLogic {
         em.setFirstName(e.getFirstName());
         session.getTransaction().commit();
         session.close();
-        System.out.println("Successfully updated " + e.toString());
+        LOGGER.debug("Successfully updated " + e.toString());
  
     }
  
@@ -76,7 +78,7 @@ public class JuxtaRemBusinessLogic {
         session.delete(e);
         session.getTransaction().commit();
         session.close();
-        System.out.println("Successfully deleted " + e.toString());
+        LOGGER.debug("Successfully deleted " + e.toString());
  
     }
  
@@ -85,6 +87,35 @@ public class JuxtaRemBusinessLogic {
         User e = (User)session.load(User.class, id);
         session.close();
         return e;
+    }
+    
+    /** 
+     * Logic to create new user account. 
+     * 
+     * @param name
+     * @param mail
+     * @param pass
+     * @return
+     * @throws JuxtaRemException
+     */
+    public User createNewUser(String name, String mail, byte[] pass) throws JuxtaRemException {
+        Session session = sessionFactory.openSession();
+        UserDao userDao = new UserDaoImpl(session);
+        User existentUser = userDao.findUserByMail(mail);
+        if (existentUser != null) {
+        	session.close();
+        	throw new JuxtaRemException(ExceptionCode.USER_EMAIL_EXISTS);
+        } 
+        //TODO check password respects criteria
+        session.beginTransaction();
+        /*------ Begin Transaction ---*/
+        User user = new User(name, mail, pass);
+        userDao.save(user);
+        session.getTransaction().commit();
+        /* Commit transaction */
+        session.close();
+        
+        return user;
     }
     
     public Task findTaskByID(Long id) {

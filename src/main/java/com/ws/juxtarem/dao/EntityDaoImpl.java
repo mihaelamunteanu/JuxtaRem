@@ -30,7 +30,7 @@ import com.ws.juxtarem.obj.Identifiable;
  */
 public class EntityDaoImpl implements EntityDao {
 	/** The active session to use */
-	private Session session;
+	protected Session session;
 	
 	/**
 	 * Constructor to set the current session. 

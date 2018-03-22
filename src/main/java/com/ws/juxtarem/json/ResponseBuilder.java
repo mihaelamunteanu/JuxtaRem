@@ -18,6 +18,7 @@ package com.ws.juxtarem.json;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.ws.juxtarem.obj.User;
 import com.ws.juxtarem.util.Constants;
@@ -38,6 +39,21 @@ public class ResponseBuilder {
 		String response = JSONUtils.buildJSONParent(Constants.RESPONSE, userJson, pointsJson);
 		String rootResponse = JSONUtils.buildJSONParent(null, response);
 		return Response.ok(rootResponse, MediaType.APPLICATION_JSON).build();
+	}
+	
+	public static Response buildCreateNewUserResponse(User user) {
+		String userId = JSONUtils.buildJSONPair(Constants.ID, String.valueOf(user.getId()));
+		String userJson = JSONUtils.buildJSONPair(Constants.USER, user.getFirstName());
+		String mailJson = JSONUtils.buildJSONPair(Constants.MAIL, String.valueOf(user.getMainMail()));
+		String response = JSONUtils.buildJSONParent(Constants.RESPONSE, userId, userJson, mailJson);
+		String rootResponse = JSONUtils.buildJSONParent(null, response);
+		return Response.ok(rootResponse, MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	public static Response buildPostCreateNewUserExceptionResponse(Exception exception) {
+		//TODO check if this is a JuxtaRem exception and build the response
+		return Response.status(Status.NOT_ACCEPTABLE).build();
 	}
 	
 //	

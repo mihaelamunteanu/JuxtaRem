@@ -50,5 +50,23 @@ public class UserDaoImpl extends EntityDaoImpl implements UserDao {
 	    //TODO add password query.setParameter("password", password);
 	    User loggedUser = (User)query.getSingleResult()	;
 	    return loggedUser;
+	    
+	    
 	}
+	
+	/**
+	 * Dao method to get a User by Email
+	 *  
+	 * 
+	 * @param mail
+	 * @return the Unique USER object or null if none exists/
+	 */
+	public User findUserByEmail(String mail) {
+	    User user = (User)
+	    	    session.createQuery("select lb from LoginBean lb where lb.email = :email")
+	    	           .setParameter(User.MAIL, mail)
+	    	           .uniqueResult();
+	    return user;
+	}
+
 }

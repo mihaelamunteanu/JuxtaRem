@@ -24,8 +24,12 @@ package com.ws.juxtarem.exception;
  *
  */
 public enum ExceptionCode {
+	GENERAL_EXCEPTION("000", "A problem occured"),
 	ID_NOT_A_NUMBER("001", "The ids are expected to be long values"),
-	ID_DOES_NOT_EXIST("002", "An object with this id does not exist");
+	ID_DOES_NOT_EXIST("002", "An object with this id does not exist"),
+	USER_EMAIL_EXISTS("100", "The email already exists"),
+	PASSWORD_NOT_COMPLIANT("101", "Password should be at least eight characters long and should contain at least one non-alfabethical character");
+	
 	
 	private String code;
 	private String description; 

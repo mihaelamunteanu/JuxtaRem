@@ -18,6 +18,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		     <param-name>jersey.config.server.provider.packages</param-name>
 		     <param-value>com.ws.juxtarem.service</param-value>
 		</init-param>
+		<!-- TODO check if it indeed needed problem with validation -->
+		<init-param>
+		    <param-name>jersey.config.server.provider.classnames</param-name>
+		    <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

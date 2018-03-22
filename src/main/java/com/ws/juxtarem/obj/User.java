@@ -16,6 +16,7 @@
 package com.ws.juxtarem.obj;
 
 import java.sql.Date;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +37,8 @@ import com.ws.juxtarem.util.ObjectUtils;
 @Table(name="users")
 @Proxy(lazy=false)
 public class User implements JSONInterface, Identifiable {
+	public static String MAIL = "mail";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -74,11 +77,19 @@ public class User implements JSONInterface, Identifiable {
 	@Transient
 	private Contact contact;
 	
+	@Column(name="password")
+	private byte[] password;
+	
 	/**
 	 * Default public constructor
 	 */
 	public User() {
 		
+	}
+	public User (String name, String mail, byte[] password) {
+		this.nickName = name;
+		this.mainMail = mail; 
+		this.password = password;
 	}
 	
 	/**
@@ -189,6 +200,13 @@ public class User implements JSONInterface, Identifiable {
 		this.userTasks = userTasks;
 	}
 
+	public byte[] getPassword() {
+		return password;
+	}
+	public void setPassword(byte[] password) {
+		this.password = password;
+	}
+	
 	public String toJSON() {
 		StringBuffer jsonStringBuffer = new StringBuffer();
 		//{"user:

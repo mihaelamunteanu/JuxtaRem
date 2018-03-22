@@ -14,22 +14,34 @@
  *  limitations under the License. 
  *  
  */
-package com.ws.juxtarem.util;
+package com.ws.juxtarem.exception;
 
 /**
- * Constants class. 
+ * Exception class for this JuxtaRem application. 
  * 
  * @author Mihaela Munteanu
- * @since 7th of March 2018
+ * @since 19th March 2018
  *
  */
-public class Constants {
-	public static final String HIBERNATE_CONFIGURATION = "/hibernate.cfg.xml";
+public class JuxtaRemException extends Exception {
+
+	/**
+	 * Default serial number.
+	 */
+	private static final long serialVersionUID = 1L;
+	private ExceptionCode juxtaRemCode;
 	
-	public static final String ID = "id";
-	public static final String USERS = "users";
-	public static final String USER = "user";
-	public static final String POINTS = "points";
-	public static final String RESPONSE = "response";
-	public static final String MAIL = "mail";
+	public JuxtaRemException(ExceptionCode exceptionCode) {
+		super();
+		juxtaRemCode = exceptionCode;
+	}
+
+	public ExceptionCode getJuxtaRemCode() {
+		return juxtaRemCode;
+	}
+
+	public void setJuxtaRemCode(ExceptionCode juxtaRemCode) {
+		this.juxtaRemCode = juxtaRemCode;
+	}
+	
 }
