@@ -32,4 +32,6 @@ public class Constants {
 	public static final String POINTS = "points";
 	public static final String RESPONSE = "response";
 	public static final String MAIL = "mail";
+	public static final String NAME = "name";
+	public static final String PASS = "pass";
 }

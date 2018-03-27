@@ -16,6 +16,8 @@
  */
 package com.ws.juxtarem.logic;
 
+import java.util.HashMap;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -28,9 +30,13 @@ import com.ws.juxtarem.exception.JuxtaRemException;
 import com.ws.juxtarem.hibernate.HibernateConfiguration;
 import com.ws.juxtarem.obj.Task;
 import com.ws.juxtarem.obj.User;
+import com.ws.juxtarem.util.Constants;
+import com.ws.juxtarem.util.ValidationUtils;
 
 /**
  * Class that takes care of the business logic before calling the DAOs. 
+ * It parses the JSON data if needed (from a POST Request), 
+ * validates the input, calls different DAOs as needed
  * 
  * @author Mihaela Munteanu
  * @since 6th of March 2018
@@ -91,6 +97,10 @@ public class JuxtaRemBusinessLogic {
     
     /** 
      * Logic to create new user account. 
+     * Get the parameters from JSON request. 
+     * Validate parameters. 
+     * Check if the mail is already used. 
+     * Save and return created user. 
      * 
      * @param name
      * @param mail
@@ -98,7 +108,14 @@ public class JuxtaRemBusinessLogic {
      * @return
      * @throws JuxtaRemException
      */
-    public User createNewUser(String name, String mail, byte[] pass) throws JuxtaRemException {
+    public User createNewUser(HashMap<String, String> jsonMappedNewUserData) throws JuxtaRemException {
+		//TODO validate input
+    	String name = jsonMappedNewUserData.get(Constants.NAME);
+    	String mail = jsonMappedNewUserData.get(Constants.MAIL);
+    	String pass = jsonMappedNewUserData.get(Constants.PASS);
+    	
+    	ValidationUtils.validateCreateNewUser(name, mail, pass.getBytes());
+    	
         Session session = sessionFactory.openSession();
         UserDao userDao = new UserDaoImpl(session);
         User existentUser = userDao.findUserByMail(mail);
@@ -106,10 +123,10 @@ public class JuxtaRemBusinessLogic {
         	session.close();
         	throw new JuxtaRemException(ExceptionCode.USER_EMAIL_EXISTS);
         } 
-        //TODO check password respects criteria
+        //check password respects criteria - can't do it as at this point it is already encrypted 
         session.beginTransaction();
         /*------ Begin Transaction ---*/
-        User user = new User(name, mail, pass);
+        User user = new User(name, mail, pass.getBytes());
         userDao.save(user);
         session.getTransaction().commit();
         /* Commit transaction */

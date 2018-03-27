@@ -33,4 +33,9 @@ public class ValidationUtils {
 		//TODO add impl
 		return true;
 	}
+
+	//Should throw exception if not valid. So boolean not expected
+	public static void validateCreateNewUser(String name, String mail, byte[] pass) {
+		//TODO check the name and the mail 
+	}
 }

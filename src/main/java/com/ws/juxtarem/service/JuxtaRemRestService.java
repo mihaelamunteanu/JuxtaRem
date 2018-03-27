@@ -28,10 +28,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ws.juxtarem.json.RequestReader;
 import com.ws.juxtarem.json.ResponseBuilder;
 import com.ws.juxtarem.logic.JuxtaRemBusinessLogic;
 import com.ws.juxtarem.obj.Task;
 import com.ws.juxtarem.obj.User;
+import com.ws.juxtarem.util.Constants;
+import com.ws.juxtarem.util.ValidationUtils;
 
 @Path("/juxtaremservice")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -40,6 +46,8 @@ public class JuxtaRemRestService {
 	JuxtaRemBusinessLogic logicProcessor = new JuxtaRemBusinessLogic();
 	Map<String, User> users = new HashMap<String, User>(); 
 	
+	private static Logger LOGGER = LoggerFactory.getLogger(JuxtaRemRestService.class);
+	
 	public void init() {}
 	
 	public JuxtaRemRestService() {
@@ -47,11 +55,14 @@ public class JuxtaRemRestService {
 	}
 
 	@POST
-	@Path("/createuser/{name}/{mail}/{pass}")
-	public Response createNewUser(@PathParam("name") String name, @PathParam("mail") String mail, @PathParam("pass") String pass) {
+	@Path("/createuser/")
+	public Response createNewUser(String data) {
+		LOGGER.debug("New user created " + data);
 		try {
-			User createdUser = logicProcessor.createNewUser(name, mail, pass.getBytes());
-			return ResponseBuilder.buildCreateNewUserResponse(createdUser);
+			HashMap<String, String> jsonMappedNewUserData = RequestReader.readDataFromJsonRequest(data);
+	    	
+			User createdUser = logicProcessor.createNewUser(jsonMappedNewUserData);
+		    return ResponseBuilder.buildCreateNewUserResponse(createdUser);
 		} catch (Exception juxtaRemException) {
 			return ResponseBuilder.buildPostCreateNewUserExceptionResponse(juxtaRemException);
 		}

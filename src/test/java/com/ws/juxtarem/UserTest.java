@@ -1,4 +1,4 @@
-package juxtarem;
+package com.ws.juxtarem;
 
 import org.junit.Before;
 import org.junit.Test;
